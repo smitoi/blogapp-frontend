@@ -38,7 +38,7 @@ export const AuthProvider = ({children}) => {
         });
 
         if (response.status === 200) {
-            let data = await response.data;
+            let data = response.data;
             setAuthTokens(data);
             localStorage.setItem('authTokens', JSON.stringify(data));
 

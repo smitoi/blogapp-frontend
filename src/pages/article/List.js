@@ -1,6 +1,7 @@
 import '../../App.css';
 import {useEffect, useState} from "react";
 import useAxios from "../../api/axios";
+import {Link} from "react-router-dom";
 
 function List() {
     const [articles, setArticles] = useState([]);
@@ -20,6 +21,7 @@ function List() {
     return error ?
         <p>{error}</p>
         : <div>
+            <Link to='/article/create'>New Article</Link>
             <table>
                 <thead>
                 <tr>
@@ -32,7 +34,7 @@ function List() {
                 {
                     articles.map((article) =>
                         <tr key={article.id}>
-                            <td>{article.title}</td>
+                            <Link to={`/article/${article.id}`}>{article.title}</Link>
                             <td>{article.status === 'published' ? 'Yes' : 'No'}</td>
                             <td>{article.written_by.name}</td>
                         </tr>
