@@ -9,10 +9,10 @@ const Navbar = () => {
             <div>
                 <h1>BlogApp</h1>
                 <div>
-                    <Link to='/'>Home</Link>
-                    <Link to='/article'>Articles</Link>
                     {user ? (
                         <>
+                            <Link to='/'>Home</Link>
+                            <Link to='/article'>Articles</Link>
                             {userProfile?.is_editor ? <Link to='/editor'>Edited</Link> : null}
                             <button onClick={logoutUser}>Logout</button>
                         </>

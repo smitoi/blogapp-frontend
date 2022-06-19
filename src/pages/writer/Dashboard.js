@@ -38,7 +38,7 @@ function Dashboard() {
                     <tbody>
                     {
                         writers.map((writer) =>
-                            <tr key={writer.id}>
+                            <tr key={writer.user_id}>
                                 <td>{writer.name}</td>
                                 <td>{writer.is_editor ? 'Yes' : 'No'}</td>
                                 <td>{writer.total_articles}</td>

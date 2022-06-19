@@ -22,6 +22,11 @@ const ArticleForm = (props) => {
         e.preventDefault();
 
         if (props.article) {
+            if (props.article.edited_by) {
+                setError('This article has already been approved');
+                return;
+            }
+
             axios.put(`/api/article/${props.article.id}/`, {title, content})
                 .then((_) => {
                     window.location = '/article';
@@ -46,6 +51,7 @@ const ArticleForm = (props) => {
         <form onSubmit={handleForm}>
             <label htmlFor="title">Title:</label>
             <input
+                readOnly={props.article.edited_by_id}
                 type="text"
                 id="username"
                 onChange={(e) => setTitle(e.target.value)}
@@ -55,6 +61,7 @@ const ArticleForm = (props) => {
 
             <label htmlFor="password">Content:</label>
             <textarea
+                readOnly={props.article.edited_by_id}
                 id="content"
                 onChange={(e) => setContent(e.target.value)}
                 value={content}

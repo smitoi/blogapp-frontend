@@ -1,13 +1,14 @@
 import '../../App.css';
-import {useEffect, useState} from "react";
+import {useEffect, useState, useContext} from "react";
 import useAxios from "../../api/axios";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
+import AuthContext from "../../context/AuthContext";
 
 function List() {
     const [articles, setArticles] = useState([]);
     const [error, setError] = useState('');
     const axios = useAxios();
-
+    const {user} = useContext(AuthContext);
     useEffect(() => {
         axios.get('/api/article/')
             .then((response) => {
@@ -18,7 +19,7 @@ function List() {
             });
     }, []);
 
-    return error ?
+    return user ? (error ?
         <p>{error}</p>
         : <div>
             <Link to='/article/create'>New Article</Link>
@@ -42,7 +43,7 @@ function List() {
                 }
                 </tbody>
             </table>
-        </div>;
+        </div>) : <Redirect to='/login'/>;
 }
 
 export default List;
