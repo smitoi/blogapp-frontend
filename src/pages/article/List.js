@@ -35,7 +35,7 @@ function List() {
                     articles.map((article) =>
                         <tr key={article.id}>
                             <Link to={`/article/${article.id}`}>{article.title}</Link>
-                            <td>{article.status === 'published' ? 'Yes' : 'No'}</td>
+                            <td>{article.status === 'approved' ? 'Yes' : 'No'}</td>
                             <td>{article.written_by.name}</td>
                         </tr>
                     )
