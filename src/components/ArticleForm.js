@@ -8,7 +8,7 @@ const ArticleForm = (props) => {
     const [content, setContent] = useState(props.article?.content);
 
     useEffect(() => {
-        if (props.article) {
+        if (props.article && !title && !content) {
             setTitle(props.article?.title);
             setContent(props.article?.content);
         }
@@ -22,7 +22,7 @@ const ArticleForm = (props) => {
         e.preventDefault();
 
         if (props.article) {
-            if (props.article.edited_by) {
+            if (props.article.status === 'approved') {
                 setError('This article has already been approved');
                 return;
             }
@@ -47,11 +47,11 @@ const ArticleForm = (props) => {
 
     return <div>
         <h1>{props.article ? 'Update Article' : 'Create Article'}</h1>
-        <p style={{visibility: error.length === 0 ? 'visible' : 'hidden'}}>{error}</p>
+        <p style={{visibility: error.length === 0 ? 'hidden' : 'visible'}}>{error}</p>
         <form onSubmit={handleForm}>
             <label htmlFor="title">Title:</label>
             <input
-                readOnly={props.article.edited_by_id}
+                readOnly={props.article?.status === 'approved'}
                 type="text"
                 id="username"
                 onChange={(e) => setTitle(e.target.value)}
@@ -61,7 +61,7 @@ const ArticleForm = (props) => {
 
             <label htmlFor="password">Content:</label>
             <textarea
-                readOnly={props.article.edited_by_id}
+                readOnly={props.article?.status === 'approved'}
                 id="content"
                 onChange={(e) => setContent(e.target.value)}
                 value={content}
